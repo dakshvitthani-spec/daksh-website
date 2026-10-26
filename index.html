@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Daksh Vitthani — Aerospace Engineering</title>
+<meta name="description" content="Aerospace engineering student working on bio-inspired aerodynamics and composite structures for UAVs and air taxis.">
+<meta name="author" content="Daksh Vitthani">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Daksh Vitthani — Aerospace Engineering">
+<meta property="og:description" content="Aerospace engineering student working on bio-inspired aerodynamics and composite structures for UAVs and air taxis.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A0A0A'/%3E%3Cpath d='M32 8c2 0 3 4 3 9v9l20 12v5l-20-6v10l6 5v4l-9-3-9 3v-4l6-5V37l-20 6v-5l20-12v-9c0-5 1-9 3-9z' fill='%23FF3D8B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0A0A; --surface:#131418; --ink:#B9CCDD; --steel:#7F8D9C; --rule:#272A30; --accent:#2AA7DF; --rose:#FF3D8B;
+  color-scheme:dark;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+::selection{background:var(--rose);color:#0A0A0A}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-stretch:100%;font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg,canvas{max-width:100%;display:block}
+a{color:inherit}
+a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;height:60px;gap:16px}
+.mark{font-stretch:125%;font-weight:800;text-decoration:none;font-size:1rem;letter-spacing:-.01em}
+nav ul{display:flex;gap:clamp(14px,2.5vw,28px);list-style:none;margin:0;padding:0}
+nav a{text-decoration:none;color:var(--steel);font-size:.95rem}
+nav a:hover{color:var(--rose)}
+.mark span{color:var(--rose)}
+.hero h1{color:var(--rose)}
+.hero h1 span{color:var(--accent)}
+.menu-btn{display:none;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;border:0;background:transparent;color:var(--ink);cursor:pointer}
+.menu-btn svg{width:24px;height:24px}
+.menu-btn .x{display:none}
+.menu-btn[aria-expanded="true"] .x{display:block}
+.menu-btn[aria-expanded="true"] .bars{display:none}
+@media (max-width:760px){
+  .menu-btn{display:inline-flex}
+  nav ul{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:0;padding:8px 0 16px;background:var(--bg);border-bottom:1px solid var(--rule);box-shadow:0 18px 30px rgba(0,0,0,.6)}
+  nav ul.open{display:flex}
+  nav li a{display:block;padding:14px clamp(20px,4vw,40px);font-size:1.1rem;color:var(--ink)}
+  nav li a:active{color:var(--rose)}
+}
+
+/* hero */
+.hero-top{position:relative;overflow:hidden;padding:clamp(40px,7vw,88px) 0 clamp(8px,2vw,24px)}
+.hero-top>.wrap{position:relative;z-index:1}
+.sky{position:absolute;inset:0;pointer-events:none;z-index:0}
+.sky::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 45% 70% at 78% 45%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 70%)}
+.liner{position:absolute;right:max(2%,calc((100vw - 1120px)/2 - 40px));top:50%;width:min(500px,42vw);animation:cruise 9s ease-in-out infinite}
+@keyframes cruise{0%,100%{transform:translateY(-50%) rotate(38deg)}50%{transform:translateY(calc(-50% - 10px)) rotate(38deg)}}
+.formation{position:absolute;left:0;top:0;width:clamp(70px,9vw,120px);opacity:0;animation:sortie 16s linear infinite 1.5s}
+@keyframes sortie{0%{transform:translate(-18vw,48vw) rotate(60deg);opacity:0}4%{opacity:1}52%{opacity:1}58%{transform:translate(108vw,-24vw) rotate(60deg);opacity:0}100%{transform:translate(108vw,-24vw) rotate(60deg);opacity:0}}
+@media (max-width:1024px){.liner{opacity:.45}}
+@media (max-width:760px){.liner{width:100vw;right:-42%;opacity:.22}}
+@keyframes sortie-m{0%{transform:translate(-18vw,48vw) rotate(60deg);opacity:0}4%{opacity:.5}52%{opacity:.5}58%{transform:translate(108vw,-24vw) rotate(60deg);opacity:0}100%{transform:translate(108vw,-24vw) rotate(60deg);opacity:0}}
+@media (max-width:760px){.formation{animation-name:sortie-m}}
+@media (prefers-reduced-motion: reduce){.liner{animation:none;transform:translateY(-50%) rotate(38deg)}.formation{animation:none;opacity:.8;transform:translate(46vw,2vw) rotate(60deg)}}
+.hero h1{font-stretch:125%;font-weight:850;font-size:clamp(2.6rem,8.4vw,6.4rem);line-height:.92;letter-spacing:-.035em;margin:0 0 .35em}
+.hero .lede{font-size:clamp(1.12rem,2vw,1.4rem);line-height:1.45;max-width:36ch;margin:0;color:var(--ink)}
+.hero .now{color:var(--steel);margin:.9em 0 0;max-width:52ch}
+.tunnel{margin-top:clamp(32px,5vw,56px);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--surface)}
+.tunnel canvas{width:100%;height:clamp(260px,40vw,460px)}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px;padding:14px 0 18px}
+.controls label{font-size:.95rem;display:flex;align-items:center;gap:12px}
+.controls input[type=range]{width:min(260px,52vw);accent-color:var(--rose)}
+.readout{font-variant-numeric:tabular-nums;font-stretch:87%;font-weight:600}
+.tunnel-note{color:var(--steel);font-size:.92rem;max-width:68ch;margin:0;padding-bottom:20px}
+
+/* sections */
+section.block{padding:clamp(64px,9vw,112px) 0 0}
+.block h2{font-stretch:125%;font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.025em;line-height:1;margin:0 0 clamp(28px,4vw,44px)}
+.split{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,5vw,72px)}
+@media (max-width:820px){.split{grid-template-columns:1fr}}
+.prose p{margin:0 0 1em;max-width:62ch}
+.facts{margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 20px;align-content:start;border-top:2px solid var(--accent);padding-top:16px}
+.facts dt{color:var(--steel);font-size:.92rem;padding-top:2px}
+.facts dd{margin:0}
+
+.offduty{margin-top:clamp(40px,6vw,64px);padding-top:24px;border-top:1px solid var(--rule)}
+.offduty h3{font-stretch:112%;font-weight:750;font-size:1.25rem;margin:0 0 18px}
+.hobbies{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px clamp(28px,5vw,72px)}
+.hobbies h4{margin:0 0 6px;font-size:1.02rem;font-weight:700}
+.hobbies p{margin:0;max-width:52ch}
+@media (max-width:640px){.hobbies{grid-template-columns:1fr}}
+.photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:clamp(150px,19vw,230px);grid-auto-flow:dense;gap:10px;margin-top:28px}
+.ph{position:relative;padding:0;border:0;background:var(--surface);overflow:hidden;cursor:zoom-in;border-radius:3px}
+.ph.big{grid-column:span 2;grid-row:span 2}
+.ph.tall{grid-row:span 2}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(10,10,10,.85));opacity:.85;transition:opacity .3s}
+.ph span{position:absolute;left:12px;right:12px;bottom:10px;z-index:1;text-align:left;font-size:.85rem;color:var(--ink)}
+.ph:hover img,.ph:focus-visible img{transform:scale(1.05)}
+.ph:hover span{color:var(--rose)}
+.ph:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+@media (max-width:640px){.photos{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:150px}.ph.big{grid-row:span 1}}
+@media (prefers-reduced-motion: reduce){.ph img{transition:none}}
+.lightbox{border:0;padding:0;background:transparent;max-width:min(92vw,1400px);max-height:92vh;color:var(--ink)}
+.lightbox::backdrop{background:rgba(10,10,10,.92)}
+.lightbox img{display:block;max-width:100%;max-height:84vh;margin:0 auto;border-radius:3px}
+.lightbox p{text-align:center;margin:10px 0 0;font-size:.95rem;color:var(--ink)}
+.lb-close{position:fixed;top:14px;right:18px;width:44px;height:44px;border:1px solid var(--rose);border-radius:50%;background:var(--bg);color:var(--rose);font-size:1.5rem;line-height:1;cursor:pointer}
+
+/* experience timeline (real sequence, newest first) */
+.timeline{list-style:none;margin:0;padding:0;border-left:2px solid var(--rule)}
+.timeline li{position:relative;display:grid;grid-template-columns:150px minmax(0,1fr);gap:4px 28px;padding:0 0 32px 28px}
+.timeline li::before{content:"";position:absolute;left:-7px;top:.45em;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--ink)}
+.timeline li:first-child::before{background:var(--rose);border-color:var(--rose);box-shadow:0 0 10px var(--rose)}
+.timeline .when{color:var(--steel);font-size:.92rem;font-variant-numeric:tabular-nums;padding-top:2px}
+.timeline h3{margin:0;font-size:1.12rem;font-weight:700;line-height:1.35}
+.timeline .org{color:var(--steel);font-weight:400}
+.timeline b.hl{color:var(--rose);font-weight:600}
+.timeline p{margin:.3em 0 0;max-width:62ch}
+@media (max-width:640px){.timeline li{grid-template-columns:1fr}}
+
+/* projects */
+.project{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(28px,4vw,40px) 0;border-top:1px solid var(--rule)}
+.project:nth-child(even) figure{order:2}
+.project figure{margin:0;background:var(--surface);border:1px solid var(--rule);aspect-ratio:400/260}
+.project figure svg{width:100%;height:100%}
+.project h3{font-stretch:112%;font-weight:750;font-size:clamp(1.3rem,2.4vw,1.6rem);line-height:1.15;letter-spacing:-.015em;margin:.25em 0 .5em}
+.project p{margin:0 0 .8em;max-width:56ch}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;color:var(--steel)}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--steel)}
+.status.live{color:var(--rose)}
+.status.live::before{background:var(--rose);box-shadow:0 0 8px var(--rose)}
+.results{list-style:none;padding:0;margin:.4em 0 0;font-size:.97rem}
+.results li{padding:6px 0;border-top:1px dashed var(--rule)}
+.results b{font-variant-numeric:tabular-nums;color:var(--rose)}
+.tools{color:var(--steel);font-size:.92rem;margin:.6em 0 0}
+.project figure.gallery{aspect-ratio:auto;background:none;border:0;display:grid;gap:10px;align-self:start}
+.gallery .frame{background:var(--surface);border:1px solid var(--rule);aspect-ratio:16/10;overflow:hidden}
+.gallery .frame img{width:100%;height:100%;object-fit:cover}
+.gallery .frame.fit img{object-fit:contain}
+.gallery figcaption{font-size:.88rem;color:var(--steel);min-height:2.6em}
+.thumbs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.thumbs button{padding:0;border:1.5px solid var(--rule);background:var(--surface);aspect-ratio:4/3;overflow:hidden;cursor:pointer;opacity:.55;transition:opacity .2s,border-color .2s}
+.thumbs button img{width:100%;height:100%;object-fit:cover}
+.thumbs button:hover{opacity:1}
+.thumbs button[aria-pressed="true"]{opacity:1;border-color:var(--rose)}
+.contact-lede{max-width:56ch;margin:0 0 28px;font-size:1.15rem}
+.contact-links{display:flex;flex-wrap:wrap;gap:14px}
+.cta{display:inline-block;padding:14px 22px;border:1.5px solid var(--rose);color:var(--rose);text-decoration:none;font-weight:600;border-radius:4px;transition:background .2s,color .2s;overflow-wrap:anywhere}
+.cta:hover{background:var(--rose);color:var(--bg)}
+.cta.alt{border-color:var(--accent);color:var(--accent)}
+.cta.alt:hover{background:var(--accent);color:var(--bg)}
+@media (max-width:820px){.project{grid-template-columns:1fr}.project:nth-child(even) figure{order:0}}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px clamp(20px,3vw,40px)}
+@media (max-width:900px){.skills{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.skills{grid-template-columns:1fr}}
+.skills h3{font-size:1rem;font-weight:700;margin:0 0 10px;padding-top:12px;border-top:2px solid var(--accent)}
+.skills ul{list-style:none;margin:0;padding:0}
+.skills li{padding:4px 0;color:var(--ink)}
+.skills li span{color:var(--steel);font-size:.9rem}
+
+footer{margin-top:clamp(80px,10vw,128px);border-top:1px solid var(--rule);padding:28px 0 40px;color:var(--steel);font-size:.92rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+/* svg tokens */
+.f-ink{fill:var(--ink)} .s-ink{stroke:var(--ink)} .s-steel{stroke:var(--steel)} .f-steel{fill:var(--steel)}
+.s-acc{stroke:var(--accent)} .f-acc{fill:var(--rose)} .f-bg{fill:var(--bg)} .s-rule{stroke:var(--rule)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top">Daksh Vitthani<span>.</span></a>
+    <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navlist">
+      <svg class="bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="x" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <nav aria-label="Sections"><ul id="navlist">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#extracurricular">Activities</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-top">
+    <div class="sky" aria-hidden="true">
+      <svg class="liner" viewBox="0 0 400 400" fill="none" stroke-linejoin="round">
+        <g style="stroke:var(--accent);fill:color-mix(in srgb,var(--accent) 7%,transparent)" stroke-width="1.3">
+          <path d="M213 168 L370 252 L384 250 L386 262 L372 266 L213 222 Z"/>
+          <path d="M187 168 L30 252 L16 250 L14 262 L28 266 L187 222 Z"/>
+          <path d="M211 318 L266 346 L270 358 L209 350 Z"/>
+          <path d="M189 318 L134 346 L130 358 L191 350 Z"/>
+          <path d="M200 14 C210 14 214 32 214 60 L214 326 C214 348 208 366 200 384 C192 366 186 348 186 326 L186 60 C186 32 190 14 200 14 Z"/>
+          <rect x="266" y="192" width="14" height="38" rx="6"/>
+          <rect x="120" y="192" width="14" height="38" rx="6"/>
+        </g>
+        <g style="stroke:var(--accent)" stroke-width="1" opacity=".55">
+          <path d="M200 2 L200 396" stroke-dasharray="8 6"/>
+          <path d="M194 34 C196 30 204 30 206 34"/>
+          <path d="M250 190 L330 232 M150 190 L70 232" stroke-dasharray="3 5"/>
+        </g>
+      </svg>
+      <svg class="formation" viewBox="0 0 160 440" fill="none">
+        <defs>
+          <path id="jet" d="M20 0 C22 4 23 9 23 14 L23 21 L26 20 L27 22 L24 25 L24 28 L38 42 L38 45 L24 43 L24 47 L29 52 L29 54 L22 52 L21 55 L19 55 L18 52 L11 54 L11 52 L16 47 L16 43 L2 45 L2 42 L16 28 L16 25 L13 22 L14 20 L17 21 L17 14 C17 9 18 4 20 0 Z"/>
+          <linearGradient id="trail" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF3D8B" stop-opacity=".75"/><stop offset="1" stop-color="#FF3D8B" stop-opacity="0"/></linearGradient>
+        </defs>
+        <rect x="79" y="54" width="2" height="300" fill="url(#trail)"/>
+        <rect x="29" y="104" width="2" height="260" fill="url(#trail)"/>
+        <rect x="129" y="104" width="2" height="260" fill="url(#trail)"/>
+        <g style="fill:var(--rose)">
+          <use href="#jet" x="60" y="0"/>
+          <use href="#jet" x="10" y="50"/>
+          <use href="#jet" x="110" y="50"/>
+        </g>
+      </svg>
+    </div>
+    <div class="wrap">
+      <h1>Daksh<br><span>Vitthani</span></h1>
+      <p class="lede">Aerospace engineering student working on bio-inspired aerodynamics and composite structures for UAVs and air taxis.</p>
+      <p class="now">Final year at SRM Institute of Science and Technology. Applying to MS programs in the US, the UK and Europe, and looking for a final-year internship, January to April 2027.</p>
+    </div>
+    </div>
+
+    <div class="tunnel" aria-label="Interactive flow visualisation">
+      <canvas id="flow" role="img" aria-label="Animated smoke lines flowing around a cambered airfoil"></canvas>
+    </div>
+    <div class="wrap">
+      <div class="controls">
+        <label for="aoa">Angle of attack
+          <input id="aoa" type="range" min="-4" max="14" step="1" value="6">
+        </label>
+        <span class="readout" id="readout" aria-live="polite">α = 6°, C<sub>L</sub> ≈ 0.00</span>
+      </div>
+      <p class="tunnel-note">A Joukowski airfoil in potential flow, computed live in your browser. The smoke is released in pulses, so you can see air over the upper surface arrive at the trailing edge first. Ideal flow never stalls. Real wings do.</p>
+    </div>
+  </section>
+
+  <section class="block" id="about">
+    <div class="wrap">
+      <h2>About</h2>
+      <div class="split">
+        <div class="prose">
+          <p>I started thinking seriously about air taxis while stuck in traffic for hours. If a trip across the city could take fifteen minutes by air, what would the aircraft need to look like? That question pulled me toward VTOL aircraft, and from there into the aerodynamics and structures that make them work.</p>
+          <p>My work sits in two places. In aerodynamics, I look at how birds and marine animals manage flow, and whether those ideas can delay stall or reduce drag on real wings. In structures, I model lightweight composite panels for UAVs with finite element methods and check my numbers against published results.</p>
+          <p>Long term, I want to build electric and hybrid VTOL aircraft in India, after a master's degree and a few years in industry.</p>
+        </div>
+        <dl class="facts">
+          <dt>Studying</dt><dd>B.Tech Aerospace Engineering, SRM Institute of Science and Technology, Kattankulathur</dd>
+          <dt>Graduating</dt><dd>May 2027</dd>
+          <dt>CGPA</dt><dd>8.33 / 10</dd>
+          <dt>Based in</dt><dd>Chennai, India</dd>
+          <dt>Interests</dt><dd>VTOL and urban air mobility, bio-inspired aerodynamics, composite structures</dd>
+        </dl>
+      </div>
+      <div class="offduty">
+        <h3>Outside engineering</h3>
+        <div class="hobbies">
+          <div>
+            <h4>Cricket</h4>
+            <p>I'm a bowling all-rounder who keeps wicket when the team needs it. I've been selected two years running for a multi-department side in the SRM Premier League, first as a keeper-batsman and then as a bowling all-rounder.</p>
+          </div>
+          <div>
+            <h4>Photography</h4>
+            <p>Aviation, mountains, the sea, and whatever the light happens to be doing. A few favourites below.</p>
+          </div>
+        </div>
+        <div class="photos">
+          <button type="button" class="ph big" data-cap="Emirates A380 at the gate, London Heathrow"><img src="img/ph-a380.jpg" alt="Emirates A380 at the gate, London Heathrow" loading="lazy"><span>Emirates A380, London Heathrow</span></button>
+          <button type="button" class="ph tall" data-cap="Bactrian camels in the Nubra Valley, Ladakh"><img src="img/ph-nubra-camels.jpg" alt="Bactrian camels in the Nubra Valley, Ladakh" loading="lazy" style="object-position:50% 62%"><span>Nubra Valley, Ladakh</span></button>
+          <button type="button" class="ph" data-cap="Sunset through the leaves"><img src="img/ph-sunset.jpg" alt="Sunset through the leaves" loading="lazy"><span>Sunset through the leaves</span></button>
+          <button type="button" class="ph tall" data-cap="An old pier in a rough sea"><img src="img/ph-pier.jpg" alt="An old pier in a rough sea" loading="lazy" style="object-position:50% 60%"><span>Old pier, rough sea</span></button>
+          <button type="button" class="ph tall" data-cap="Riders on the road near Leh, Ladakh"><img src="img/ph-ladakh-riders.jpg" alt="Riders on the road near Leh, Ladakh" loading="lazy" style="object-position:50% 70%"><span>On the road near Leh</span></button>
+          <button type="button" class="ph" data-cap="Airport apron at night"><img src="img/ph-apron-night.jpg" alt="Airport apron at night" loading="lazy" style="object-position:30% 52%"><span>Apron at night</span></button>
+        </div>
+        <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+          <img alt="">
+          <p></p>
+          <button type="button" class="lb-close" aria-label="Close">×</button>
+        </dialog>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experience">
+    <div class="wrap">
+      <h2>Experience</h2>
+      <ol class="timeline" reversed>
+        <li>
+          <div class="when">May – Jul 2026</div>
+          <div>
+            <h3>Research intern, Department of Aerospace Engineering <span class="org">IIT Bombay</span></h3>
+            <p>Finite element modelling of corrugated composite panels for morphing UAV wings. Built detailed ANSYS Workbench models to study their stiffness and deformation, defined laminate layups and material properties for the shell structures, and validated the results against published research.</p>
+          </div>
+        </li>
+        <li>
+          <div class="when">Dec 2025 – Jan 2026</div>
+          <div>
+            <h3>Intern, Aerospace Composites Division <span class="org">Hindustan Aeronautics Limited, Bengaluru</span></h3>
+            <p>Studied how composite parts for rotary-wing and fixed-wing aircraft are made: prepreg lay-up, vacuum bagging, autoclave and oven curing, trimming and bonding. Observed quality assurance, including flatwise tensile and lap shear testing, and carried out a case study on reducing the weight of composite structures while keeping them airworthy.</p>
+          </div>
+        </li>
+        <li>
+          <div class="when">Jun – Aug 2025</div>
+          <div>
+            <h3>Business Operations Intern <span class="org">Multi Project Consulting Engineers, Surat</span></h3>
+            <p>Managed and processed purchase orders for project procurement, visited construction sites to track progress, and worked with cross-functional teams on resource planning, budgeting and project coordination.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="extracurricular">
+    <div class="wrap">
+      <h2>Extracurricular</h2>
+      <ol class="timeline">
+        <li>
+          <div class="when">Nov 2025 – May 2026</div>
+          <div>
+            <h3>Corporate Lead <span class="org">Hybrutos Racing, Formula Student</span></h3>
+            <p>Ran sponsorship, industry relations, budgeting and financial planning for the team's car. Built and presented the cost report and financial strategy at Formula Imperial 2025 in Coimbatore, the team's first national Formula Student event since 2021. The team won the <b class="hl">Best Cost Presentation Award</b> and the <b class="hl">Best Engineering Design Award</b>.</p>
+          </div>
+        </li>
+        <li>
+          <div class="when">Aug 2025</div>
+          <div>
+            <h3>Media Team <span class="org">SAEISS Drone Development Challenge</span></h3>
+            <p>Covered the event's technical activities through photography.</p>
+          </div>
+        </li>
+        <li>
+          <div class="when">Mar 2025</div>
+          <div>
+            <h3>Rocket Design, Fabrication and Testing Workshop</h3>
+            <p>Designed, simulated (OpenRocket) and built a model rocket, including stability analysis and flight testing.</p>
+          </div>
+        </li>
+        <li>
+          <div class="when"></div>
+          <div>
+            <h3>Corporate Recruit <span class="org">Camber Racing</span></h3>
+            <p>Supported sponsorship outreach, stakeholder engagement and partnership building.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="projects">
+    <div class="wrap">
+      <h2>Projects</h2>
+      <div class="project-list">
+
+
+        <article class="project">
+          <figure class="gallery" aria-label="Structural Modelling of UAV images">
+            <div class="frame fit"><img src="img/iitb-deformation.jpg" alt="Total deformation of the corrugated panel under pressure, max 12.68 mm" loading="lazy"></div>
+            <figcaption>Total deformation of the corrugated panel under pressure, max 12.68 mm</figcaption>
+            <div class="thumbs">
+              <button type="button" aria-pressed="true" data-src="img/iitb-deformation.jpg" data-cap="Total deformation of the corrugated panel under pressure, max 12.68 mm" data-fit aria-label="Show: Total deformation of the corrugated panel under pressure, max 12.68 mm"><img src="img/iitb-deformation.jpg" alt="" loading="lazy"></button>
+              <button type="button" aria-pressed="false" data-src="img/iitb-validation.jpg" data-cap="Displacement along the panel: my simulation against Xia et al. (2012)" data-fit aria-label="Show: Displacement along the panel: my simulation against Xia et al. (2012)"><img src="img/iitb-validation.jpg" alt="" loading="lazy"></button>
+              <button type="button" aria-pressed="false" data-src="img/iitb-rve-mesh.jpg" data-cap="Meshed unit cell (RVE) used to compute the composite’s material constants" data-fit aria-label="Show: Meshed unit cell (RVE) used to compute the composite’s material constants"><img src="img/iitb-rve-mesh.jpg" alt="" loading="lazy"></button>
+              <button type="button" aria-pressed="false" data-src="img/iitb-bending.jpg" data-cap="In-plane shear response of the panel in ANSYS" data-fit aria-label="Show: In-plane shear response of the panel in ANSYS"><img src="img/iitb-bending.jpg" alt="" loading="lazy"></button>
+            </div>
+          </figure>
+          <div>
+            <span class="status">Completed, IIT Bombay, 2026</span>
+            <h3>Structural Modelling of UAV</h3>
+            <p>Corrugated composite panels are stiff in one direction and flexible in another, which makes them attractive for UAV morphing structures but expensive to model in full. I replaced the full geometry with an equivalent flat plate by homogenising a single repeating cell under six periodic load cases and extracting its ABD stiffness matrix.</p>
+            <ul class="results">
+              <li>Reproduced Xia et al. (2012): max deformation <b>12.68 mm</b>, displacement curve matching the paper</li>
+              <li>Variable-height SMPC panel (Saurav et al., 2024): <b>A11 within 0.5%</b>, <b>D11 within 3.3%</b> of published values</li>
+              <li>Adding face skins cut bending deflection about <b>10×</b> (0.996 → 0.097 mm)</li>
+              <li>Coupling terms such as D12 diverged; traced to limits of the energy-equivalence method</li>
+            </ul>
+            <p class="tools">ANSYS Static Structural, ANSYS ACP, SHELL181/281 elements</p>
+          </div>
+        </article>
+
+        <article class="project">
+          <figure class="gallery" aria-label="Drag reduction images">
+            <div class="frame"><img src="img/airfoil-mounted.jpg" alt="NACA 2415 model mounted in the test section" loading="lazy"></div>
+            <figcaption>NACA 2415 model mounted in the test section</figcaption>
+            <div class="thumbs">
+              <button type="button" aria-pressed="true" data-src="img/airfoil-mounted.jpg" data-cap="NACA 2415 model mounted in the test section" aria-label="Show: NACA 2415 model mounted in the test section"><img src="img/airfoil-mounted.jpg" alt="" loading="lazy"></button>
+              <button type="button" aria-pressed="false" data-src="img/erm-actuators.jpg" data-cap="Seven ERM vibration motors wired along the span" aria-label="Show: Seven ERM vibration motors wired along the span"><img src="img/erm-actuators.jpg" alt="" loading="lazy"></button>
+              <button type="button" aria-pressed="false" data-src="img/tunnel-setup.jpg" data-cap="Three-component wind tunnel with the data acquisition system" aria-label="Show: Three-component wind tunnel with the data acquisition system"><img src="img/tunnel-setup.jpg" alt="" loading="lazy"></button>
+              <button type="button" aria-pressed="false" data-src="img/airfoil-model.jpg" data-cap="The fabricated model before painting and wiring" aria-label="Show: The fabricated model before painting and wiring"><img src="img/airfoil-model.jpg" alt="" loading="lazy"></button>
+            </div>
+          </figure>
+          <div>
+            <span class="status">Completed, SRM wind tunnel</span>
+            <h3>Vibration-driven drag reduction on a NACA 2415</h3>
+            <p>Dolphins and sharks reduce skin friction drag through surface texture and motion. I tested a simpler version of the idea: small vibration motors embedded in a NACA 2415 airfoil, run in SRM's subsonic wind tunnel at a range of angles of attack.</p>
+            <p>The effect showed up only at small negative angles of attack and faded across the normal operating range and after stall. I am now extending the idea to passive bio-inspired surface textures.</p>
+            <p class="tools">Subsonic wind tunnel, force balance, ERM actuators</p>
+          </div>
+        </article>
+
+
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="skills">
+    <div class="wrap">
+      <h2>Skills and tools</h2>
+      <div class="skills">
+        <div>
+          <h3>Simulation</h3>
+          <ul>
+            <li>ANSYS Fluent</li>
+            <li>ANSYS Static Structural</li>
+            <li>ANSYS ACP <span>composites</span></li>
+            <li>SimScale</li>
+            <li>XFLR5</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Design</h3>
+          <ul>
+            <li>SolidWorks</li>
+            <li>Fusion 360</li>
+            <li>GMAT <span>mission analysis</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Programming</h3>
+          <ul>
+            <li>Python</li>
+            <li>MATLAB</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Methods</h3>
+          <ul>
+            <li>CFD setup and validation</li>
+            <li>FEM homogenisation of composites</li>
+            <li>Wind tunnel testing</li>
+            <li>Schlieren flow visualisation</li>
+            <li>Cost and business modelling</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="block" id="contact">
+    <div class="wrap">
+      <h2>Get in touch</h2>
+      <p class="contact-lede">I’m looking for a final-year internship from January to April 2027, and I plan to start an MS in Fall 2027. If you work on UAVs, eVTOL aircraft or composite structures, I’d like to hear from you.</p>
+      <div class="contact-links">
+        <a class="cta" href="mailto:dakshvitthani@gmail.com">dakshvitthani@gmail.com</a>
+        <a class="cta alt" href="https://www.linkedin.com/in/daksh-vitthani-6b91b825a/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Daksh Vitthani</span>
+    <span>Chennai, India</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const cv = document.getElementById('flow');
+  const ctx = cv.getContext('2d');
+  const slider = document.getElementById('aoa');
+  const readout = document.getElementById('readout');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  // Joukowski airfoil: circle centre mu, radius through zeta = 1 (sharp trailing edge)
+  const MU_RE = -0.1, MU_IM = 0.1;
+  const R = Math.hypot(1 - MU_RE, -MU_IM);
+  const THETA_TE = Math.atan2(-MU_IM, 1 - MU_RE);
+  let alpha = 0, ca = 1, sa = 0, G = 0;
+
+  // airfoil outline in z-plane
+  const foil = [];
+  let xmin = 1e9, xmax = -1e9;
+  for (let i = 0; i <= 240; i++) {
+    const p = (i / 240) * Math.PI * 2;
+    const zr = MU_RE + R * Math.cos(p), zi = MU_IM + R * Math.sin(p);
+    const m = zr * zr + zi * zi;
+    const x = zr + zr / m, y = zi - zi / m;
+    foil.push([x, y]); xmin = Math.min(xmin, x); xmax = Math.max(xmax, x);
+  }
+  const chord = xmax - xmin;
+  const CX = (xmin + xmax) / 2;
+
+  function setAlpha(deg){
+    alpha = deg * Math.PI / 180; ca = Math.cos(alpha); sa = Math.sin(alpha);
+    G = 4 * Math.PI * R * Math.sin(alpha - THETA_TE);       // Kutta condition, U = 1
+    const cl = 2 * G / chord;
+    readout.innerHTML = 'α = ' + deg + '°, C<sub>L</sub> ≈ ' + cl.toFixed(2);
+  }
+
+  // velocity of a particle expressed in the zeta-plane, so that its image in z moves at the true speed
+  function vel(x, y, out){
+    const px = x - MU_RE, py = y - MU_IM;
+    const m2 = px * px + py * py;
+    // 1/zp^2
+    const qr = (px * px - py * py) / (m2 * m2), qi = (-2 * px * py) / (m2 * m2);
+    // R^2 e^{i a} / zp^2
+    const r2 = R * R;
+    const tr = r2 * (ca * qr - sa * qi), ti = r2 * (ca * qi + sa * qr);
+    // i G/(2 pi) / zp
+    const k = G / (2 * Math.PI);
+    const ur = k * (py / m2), ui = k * (px / m2);
+    const dwr = ca - tr + ur, dwi = -sa - ti + ui;
+    // J = 1 - 1/zeta^2
+    const m = x * x + y * y;
+    const jr = 1 - (x * x - y * y) / (m * m), ji = (2 * x * y) / (m * m);
+    const j2 = Math.max(jr * jr + ji * ji, 0.03);
+    out[0] = dwr / j2; out[1] = -dwi / j2;
+  }
+
+  const MAX = 9000;
+  const PX = new Float32Array(MAX), PY = new Float32Array(MAX), AGE = new Uint16Array(MAX), TONE = new Uint8Array(MAX);
+  let n = 0, frame = 0;
+  const RAKE = 24, DT = 0.024, v1 = [0, 0], v2 = [0, 0];
+
+  function step(){
+    if ((frame & 1) === 0) {
+      const tone = Math.floor(frame / 34) % 2;
+      for (let i = 0; i < RAKE && n < MAX; i++) {
+        const RX = -4.8 + CX, RY = -2.1 + 4.2 * i / (RAKE - 1) + 0.06;
+        PX[n] = RX * ca - RY * sa; PY[n] = RX * sa + RY * ca;
+        AGE[n] = 0; TONE[n] = tone; n++;
+      }
+    }
+    for (let i = 0; i < n; i++) {
+      const x = PX[i], y = PY[i];
+      vel(x, y, v1);
+      vel(x + v1[0] * DT * .5, y + v1[1] * DT * .5, v2);
+      const nx = x + v2[0] * DT, ny = y + v2[1] * DT;
+      const dx = nx - MU_RE, dy = ny - MU_IM;
+      AGE[i]++;
+      if (nx * ca + ny * sa > 5 + CX || dx * dx + dy * dy < R * R * 0.998 || AGE[i] > 1400 || !isFinite(nx)) {
+        n--; PX[i] = PX[n]; PY[i] = PY[n]; AGE[i] = AGE[n]; TONE[i] = TONE[n]; i--; continue;
+      }
+      PX[i] = nx; PY[i] = ny;
+    }
+    frame++;
+  }
+
+  let W = 0, H = 0, S = 1, dpr = 1, colors = {};
+  function readColors(){
+    const cs = getComputedStyle(document.documentElement);
+    colors = { ink: cs.getPropertyValue('--ink').trim(), acc: cs.getPropertyValue('--accent').trim(), rose: cs.getPropertyValue('--rose').trim(), page: cs.getPropertyValue('--bg').trim(), bg: cs.getPropertyValue('--surface').trim() };
+  }
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    S = Math.min(W / 7.2, H / 3.4);
+    draw();
+  }
+
+  function draw(){
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = colors.bg; ctx.fillRect(0, 0, W, H);
+    const cx0 = W / 2, cy0 = H / 2;
+    // rotate the view so the free stream is horizontal and the airfoil pitches with alpha
+    const tx = (zx, zy) => cx0 + ((zx - CX) * ca + zy * sa) * S;
+    const ty = (zx, zy) => cy0 - (-(zx - CX) * sa + zy * ca) * S;
+    const sz = W < 500 ? 1.6 : 2;
+    for (let t = 0; t < 2; t++) {
+      ctx.fillStyle = t ? colors.rose : colors.acc;
+      ctx.globalAlpha = t ? 0.9 : 0.75;
+      for (let i = 0; i < n; i++) {
+        if (TONE[i] !== t) continue;
+        const x = PX[i], y = PY[i], m = x * x + y * y;
+        const zx = x + x / m, zy = y - y / m;
+        ctx.fillRect(tx(zx, zy) - sz / 2, ty(zx, zy) - sz / 2, sz, sz);
+      }
+    }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = colors.page;
+    ctx.strokeStyle = colors.rose; ctx.lineWidth = 2; ctx.lineJoin = 'round';
+    ctx.shadowColor = colors.rose; ctx.shadowBlur = 12;
+    ctx.beginPath();
+    foil.forEach(([x, y], i) => i ? ctx.lineTo(tx(x, y), ty(x, y)) : ctx.moveTo(tx(x, y), ty(x, y)));
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+
+  let running = false, visible = true;
+  function loop(){
+    if (!running) return;
+    step(); step(); draw();
+    requestAnimationFrame(loop);
+  }
+  function start(){
+    if (reduce.matches) { running = false; draw(); return; }
+    if (!running && visible) { running = true; requestAnimationFrame(loop); }
+  }
+  function warm(steps){ for (let i = 0; i < steps; i++) step(); }
+
+  slider.addEventListener('input', () => {
+    setAlpha(+slider.value);
+    if (reduce.matches) { n = 0; frame = 0; warm(700); }
+    draw();
+  });
+  const scheme = window.matchMedia('(prefers-color-scheme: dark)');
+  (scheme.addEventListener ? scheme.addEventListener('change', () => { readColors(); draw(); }) : null);
+  reduce.addEventListener && reduce.addEventListener('change', () => { running = false; start(); });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => {
+      visible = es[0].isIntersecting;
+      if (visible) start(); else running = false;
+    }).observe(cv);
+  }
+  if ('ResizeObserver' in window) new ResizeObserver(resize).observe(cv);
+  window.addEventListener('resize', resize);
+
+  readColors();
+  setAlpha(+slider.value);
+  warm(700);
+  resize();
+  start();
+})();
+</script>
+<script>
+(function(){
+  var btn=document.querySelector('.menu-btn'), list=document.getElementById('navlist');
+  function setOpen(o){list.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');btn.setAttribute('aria-label',o?'Close menu':'Open menu');}
+  btn.addEventListener('click',function(){setOpen(!list.classList.contains('open'));});
+  list.addEventListener('click',function(e){if(e.target.closest('a'))setOpen(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
+})();
+(function(){
+  var lb=document.getElementById('lightbox'); if(!lb||!lb.showModal) return;
+  var im=lb.querySelector('img'), cap=lb.querySelector('p');
+  document.querySelectorAll('.ph').forEach(function(b){
+    b.addEventListener('click',function(){var i=b.querySelector('img');im.src=i.src;im.alt=i.alt;cap.textContent=b.dataset.cap;lb.showModal();});
+  });
+  lb.addEventListener('click',function(){lb.close();});
+})();
+document.querySelectorAll('figure.gallery').forEach(function(g){
+  var frame=g.querySelector('.frame'), img=frame.querySelector('img'), cap=g.querySelector('figcaption');
+  g.querySelectorAll('.thumbs button').forEach(function(b){
+    b.addEventListener('click',function(){
+      img.src=b.dataset.src; img.alt=b.dataset.cap; cap.textContent=b.dataset.cap;
+      frame.classList.toggle('fit',b.hasAttribute('data-fit'));
+      g.querySelectorAll('.thumbs button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+    });
+  });
+});
+</script>
+</body>
+</html>
